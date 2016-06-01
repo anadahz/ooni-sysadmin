@@ -35,7 +35,6 @@
       virtualenv="{{ letsencrypt_venv }}"
       virtualenv_site_packages=no name={{ item }}
       state=latest
-      virtualenv_python=python2
     with_items:
       - setuptools
       - pip
