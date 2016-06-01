@@ -18,6 +18,10 @@ letsencrypt_command: "{{ letsencrypt_venv }}/bin/letsencrypt --agree-tos
     {% if letsencrypt_server is defined  %}
         --server {{ letsencrypt_server }}
     {% endif %}
+    {% if letsencrypt_challenges is defined and
+    letsencrypt_authenticator == 'standalone' %}
+    --standalone-supported-challenges {{ letsencrypt_challenges }}
+    {% endif %}
         --expand"
 letsencrypt_renew: false
 letsencrypt_renewal_frequency:
@@ -26,3 +30,6 @@ letsencrypt_renewal_frequency:
   minute: 0
 letsencrypt_renewal_command_args: ''
 letsencrypt_cert_path: /etc/letsencrypt/live/oonib
+# letencrypt staging server used for testing with higher rate limits
+letsencrypt_server: "https://acme-staging.api.letsencrypt.org/directory"
+letsencrypt_challenges: http-01
