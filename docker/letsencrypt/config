@@ -1,0 +1,4 @@
+# Generate and renew certificates for the following domains
+DOMAIN_GEN="bouncer.ooni.io,a.collector.ooni.io,a.web-connectivity.th.ooni.io"
+# Email used to register certificates
+ADMIN_EMAIL="admin@openobservatory.org"
