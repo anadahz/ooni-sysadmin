@@ -10,13 +10,9 @@
   register: "{{ item }}_hostname"
   failed_when: "{{ item }}_hostname.rc not in [0, 1]"
   with_items:
-{% if enable_bouncer == "yes" %}
-    - {{ bouncer_hsdir }}
-{% endif %}
+    - {{ bouncer_hsdir, when: enable_bouncer == "yes"}}
     - {{ collector_hsdir }}
-{% if enable_web_connectivity == "yes" %}
-    - {{ web_connectivity_hsdir }}
-{% endif %}
+    - {{ web_connectivity_hsdir, when: enable_web_connectivity == "yes" }}
 
 - name: Template "{{ bouncer_file }}"
   template: >
