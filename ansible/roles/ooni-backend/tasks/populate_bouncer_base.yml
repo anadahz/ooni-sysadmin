@@ -9,10 +9,19 @@
   shell: cat "{{ item }}/hostname"
   register: "{{ item }}_hostname"
   failed_when: "{{ item }}_hostname.rc not in [0, 1]"
+  when: enable_bouncer == "yes"
   with_items:
-    - {{ bouncer_hsdir, when: enable_bouncer == "yes"}}
-    - {{ collector_hsdir }}
-    - {{ web_connectivity_hsdir, when: enable_web_connectivity == "yes" }}
+    - bouncer_hsdir
+    - collector_hsdir
+
+- name: Assign hidden services hostnames to variables
+  shell: cat "{{ item }}/hostname"
+  register: "{{ item }}_hostname"
+  failed_when: "{{ item }}_hostname.rc not in [0, 1]"
+  when: enable_web_connectivity == "yes"
+  with_items:
+    - web_connectivity_hsdir
+    - collector_hsdir
 
 - name: Template "{{ bouncer_file }}"
   template: >
