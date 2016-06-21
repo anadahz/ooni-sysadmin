@@ -7,6 +7,13 @@
     enable_bouncer: yes
     letsencrypt_set: true
     oonibackend_data_path: /data/oonibackend
+    letsencrypt_confdir: /etc/letsencrypt
+    letsencrypt_domains: "{{ letsencrypt_domain_list|map(attribute='domain')|join(',') }}"
+    letsencrypt_live_dir: "{{ letsencrypt_confdir }}/live/{{ letsencrypt_domain_list|selectattr('role', 'equalto', 'host')|map(attribute='domain')|first }}"
+    letsencrypt_privkey_cert_bundle: "{{ letsencrypt_live_dir }}/privkey_cert.pem"
+    oonibackend_data_path: /data/oonibackend
+    oonibackend_tls_dir: "{{ oonibackend_data_path }}/tls"
+    oonibackend_certbundle: "{{ oonibackend_tls_dir }}/certbundle.pem"
   roles:
   - common
   - { role: supervisord, when "set_supervisord == 'true'" }
