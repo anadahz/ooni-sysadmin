@@ -6,3 +6,4 @@
 - include: supervisord.yml
   when: set_supervisord is defined and set_supervisord == 'true'
 - include: populate_bouncer_base.yml
+  when: set_populate_bouncer_base
