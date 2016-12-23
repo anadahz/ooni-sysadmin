@@ -25,6 +25,7 @@
     name="{{ docker_img_name }}"
     path="{{ bind_oonibackend_data_path }}"
     nocache=True
+    force=yes
 
 - name: Generate oonibackend.conf template
   template: >

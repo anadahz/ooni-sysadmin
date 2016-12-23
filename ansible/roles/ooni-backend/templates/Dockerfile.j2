@@ -1,4 +1,9 @@
 FROM debian:jessie
+# Use ansible ppa repository to get the latest version of ansible
+RUN gpg --keyserver keys.gnupg.net --recv 6125e2a8c77f2818fb7bd15b93c4a3fd7bb9c367
+RUN gpg --export 6125e2a8c77f2818fb7bd15b93c4a3fd7bb9c367  | apt-key add -
+RUN echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" \
+         | tee /etc/apt/sources.list.d/ansible.list
 RUN apt-get -y update
 RUN apt-get install -y git-core ansible
 RUN git clone {{ ooni_sysadmin_repo }} /tmp/ooni-sysadmin
