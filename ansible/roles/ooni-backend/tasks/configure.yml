@@ -4,3 +4,4 @@
     src=oonibackend.conf.j2
     dest={{ oonibackend_conf }}
     backup=yes
+  when: docker_deployment is undefined
